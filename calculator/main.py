@@ -109,39 +109,12 @@ class MyPyQT_Form(QtWidgets.QWidget,Ui_Form):
 
             # generate new content without %
             new = ''
-            N = len(content)
-            if rep_index[0][0] == 0:
-                if rep_index[-1][-1] < N-1:
-                    p = len(rep_index)
-                    for i in range(p):
-                        new = new+rep[i]
-                        if i != p-1:
-                            new = new+content[rep_index[i][-1]+1:rep_index[i+1][0]]
-                        else:
-                            new = new+content[rep_index[i][-1]+1:]
-                else:
-                    p = len(rep_index)
-                    for i in range(p):
-                        new = new+rep[i]
-                        if i != p-1:
-                            new = new+content[rep_index[i][-1]+1:rep_index[i+1][0]]
-            else:
-                if rep_index[-1][-1] < N-1:
-                    p = len(rep_index)
-                    new = new + content[0:rep_index[0][0]]
-                    for i in range(p):
-                        new = new + rep[i]
-                        if i != p-1:
-                            new = new + content[rep_index[i][-1]+1:rep_index[i+1][0]]
-                        else:
-                            new = new + content[rep_index[i][-1]:]
-                else:
-                    p = len(rep)
-                    new = new + content[0:rep_index[0][0]]
-                    for i in range(p):
-                        new = new + rep[i]
-                        if i != p-1:
-                            new = new + content[rep_index[i][-1] + 1:rep_index[i + 1][0]]
+            new += content[0:rep_index[0][0]]
+            for i in range(len(rep)):
+                new += rep[i]
+                if i+1 <= len(rep)-1:
+                    new += content[rep_index[i][-1]+1:rep_index[i+1][0]]
+            new += content[rep_index[-1][-1]+1:]
 
             print("original expression: ",content)
             print("transformed expression: ",new)
